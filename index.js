@@ -7,23 +7,23 @@ const dbURL = process.env.DB_URL;
 const app = express();
 
 app.use(
-   express.urlencoded({
-      extended: true,
-      limit: '30mb',
-   })
+    express.urlencoded({
+        extended: true,
+        limit: '30mb',
+    })
 );
 app.use(express.json());
 route(app);
 mongoose
-   .connect(dbURL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-   })
-   .then(() => {
-      app.listen(3000, () => {
-         console.log('Success');
-      });
-   })
-   .catch((er) => {
-      console.log('Error: ' + er.message);
-   });
+    .connect(dbURL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        app.listen(3000, () => {
+            console.log('Success');
+        });
+    })
+    .catch((er) => {
+        console.log('Error: ' + er.message);
+    });

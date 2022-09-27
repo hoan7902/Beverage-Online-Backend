@@ -1,6 +1,12 @@
 {
    "rules": {
-      "semi": ["error", "always"],
       "no-unused-vars": ["error", { "vars": "all" }]
+   },
+   "parserOptions": {
+      "ecmaVersion": "latest"
+   },
+
+   "env": {
+      "es6": true
    }
 }

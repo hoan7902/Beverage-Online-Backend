@@ -11,12 +11,14 @@ before_script:
   - yarn
 
 lint:
+  stage: lint
   script:
     - yarn lint
   only:
     - merge_request
 
 format:
+  stage: format
   script:
     - yarn format
   only:

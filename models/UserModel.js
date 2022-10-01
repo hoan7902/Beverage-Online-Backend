@@ -6,12 +6,12 @@ const schema = new mongoose.Schema(
             type: String,
         },
         password: {
-            required: true,
+            default: '',
             type: String,
         },
         userName: {
+            default: '',
             type: String,
-            required: true,
         },
         avatar: {
             type: String,
@@ -24,6 +24,14 @@ const schema = new mongoose.Schema(
         birthDate: {
             type: String,
             default: '',
+        },
+        isActive: {
+            type: Boolean,
+            default: false,
+        },
+        admin: {
+            type: Boolean,
+            default: false,
         },
     },
     { timestamps: true }

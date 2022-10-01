@@ -1,0 +1,23 @@
+image: node:14
+stages:
+  - lint
+  - format
+cache: 
+  paths:
+    - node_modules/
+
+before_script:
+  - npm i yarn
+  - yarn
+
+lint:
+  script:
+    - yarn lint
+  only:
+    - merge_request
+
+format:
+  script:
+    - yarn format
+  only:
+    - merge_request

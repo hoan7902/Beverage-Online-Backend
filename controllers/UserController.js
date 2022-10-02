@@ -10,7 +10,7 @@ class UserController {
                 const user = await UserModel.findById(userId);
                 user.userName = userName;
                 user.isActive = true;
-                user.save();
+                await user.save();
                 const dataRespone = {
                     user: { ...user.toObject(), password: '', isActive: true },
                 };
@@ -65,7 +65,7 @@ class UserController {
                         phoneNumber: phoneNumber,
                         password: password,
                     });
-                    newUser.save();
+                    await newUser.save();
                     const dataRespone = {
                         userId: newUser._id,
                     };
@@ -90,7 +90,7 @@ class UserController {
             user.userName = userName;
             user.birthDate = birthDate;
             user.email = email;
-            user.save();
+            await user.save();
             const dataRespone = {
                 user: { ...user.toObject(), password: '' },
             };
@@ -119,7 +119,7 @@ class UserController {
                     res.status(200).send(respone);
                 } else {
                     user.password = newPassword;
-                    user.save();
+                    await user.save();
                     const respone = {
                         code: 112,
                         message: 'Change your password success',

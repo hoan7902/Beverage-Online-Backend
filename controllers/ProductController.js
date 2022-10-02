@@ -25,7 +25,7 @@ class ProductController {
                     typeId,
                     image,
                 });
-                newProduct.save();
+                await newProduct.save();
                 const response = {
                     code: 201,
                     message: 'Create Product successfully',

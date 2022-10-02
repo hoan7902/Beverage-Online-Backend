@@ -5,4 +5,5 @@ route.post('/add-product', productController.addProduct);
 route.post('/update-product', productController.updateProduct);
 route.post('/delete-product', productController.deleteProduct);
 route.get('/get-product', productController.getProduct);
+route.get('/get-product-detail', productController.getProductDetail);
 module.exports = route;

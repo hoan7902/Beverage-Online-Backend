@@ -25,7 +25,7 @@ class ProductController {
                     typeId,
                     image,
                 });
-                newProduct.save();
+                await newProduct.save();
                 const response = {
                     code: 201,
                     message: 'Create Product successfully',
@@ -122,20 +122,27 @@ class ProductController {
     getProduct = async function (req, res) {
         try {
             let { typeId } = req.query;
-            // typeId = typeId !== "" ? typeId : undefined;
             if (typeId) {
                 const listProduct = await ProductModel.find({
                     typeId: typeId,
                 }).select('name price size pricePlus image');
-                const dataRespone = {
-                    listProduct: listProduct,
-                };
-                const response = {
-                    code: 301,
-                    message: 'Get list product successfully',
-                    data: dataRespone,
-                };
-                res.status(200).send(response);
+                if (listProduct.length) {
+                    const dataRespone = {
+                        listProduct: listProduct,
+                    };
+                    const response = {
+                        code: 301,
+                        message: 'Get list product successfully',
+                        data: dataRespone,
+                    };
+                    res.status(200).send(response);
+                } else {
+                    const response = {
+                        code: 302,
+                        message: 'TypeId is not correct',
+                    };
+                    res.status(200).send(response);
+                }
             } else {
                 const listProduct = await ProductModel.find({}).select(
                     'name price size pricePlus image'
@@ -147,6 +154,32 @@ class ProductController {
                     code: 301,
                     message: 'Get list product successfully',
                     data: dataRespone,
+                };
+                res.status(200).send(response);
+            }
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    };
+    //--------- Get detail product --------------------
+    getProductDetail = async function (req, res) {
+        try {
+            let { productId } = req.query;
+            const productDetail = await ProductModel.findById(productId);
+            if (productDetail) {
+                const dataRespone = {
+                    productDetail: productDetail,
+                };
+                const response = {
+                    code: 303,
+                    message: 'Get product detail successfully',
+                    data: dataRespone,
+                };
+                res.status(200).send(response);
+            } else {
+                const response = {
+                    code: 304,
+                    message: 'ProductId is not correct',
                 };
                 res.status(200).send(response);
             }

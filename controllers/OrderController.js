@@ -13,6 +13,7 @@ class ProductController {
                 status,
                 address,
                 userId,
+                description,
             } = req.body;
             const newOrder = new OrderModel({
                 phoneNumber,
@@ -23,6 +24,7 @@ class ProductController {
                 status,
                 address,
                 userId,
+                description,
             });
             await newOrder.save();
             const response = {

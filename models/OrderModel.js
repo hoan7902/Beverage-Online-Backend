@@ -35,6 +35,13 @@ const schema = new mongoose.Schema(
                     type: Number,
                     required: true,
                 },
+                toppings: [
+                    {
+                        name: String,
+                        price: Number,
+                        image: String,
+                    },
+                ],
             },
         ],
         totalPrice: {
@@ -52,6 +59,10 @@ const schema = new mongoose.Schema(
         address: {
             required: true,
             type: String,
+        },
+        description: {
+            type: String,
+            default: '',
         },
     },
     {

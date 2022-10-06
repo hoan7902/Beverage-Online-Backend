@@ -165,7 +165,9 @@ class ProductController {
     getProductDetail = async function (req, res) {
         try {
             let { productId } = req.query;
-            const productDetail = await ProductModel.findById(productId);
+            const productDetail = await ProductModel.findById(productId).select(
+                'name price size pricePlus image typeId description'
+            );
             if (productDetail) {
                 const dataRespone = {
                     productDetail: productDetail,

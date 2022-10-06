@@ -2,10 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const route = require('./routes/index');
+const cors = require('cors');
 const { Server } = require('socket.io');
 dotenv.config();
 const dbURL = process.env.DB_URL;
 const app = express();
+
+app.use(cors());
 
 app.use(
     express.urlencoded({

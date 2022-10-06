@@ -38,7 +38,6 @@ class CategoryController {
                     name,
                     description,
                 });
-                await newCategory.save();
                 const response = {
                     code: 502,
                     message: 'Update category success',
@@ -82,6 +81,23 @@ class CategoryController {
                 };
                 res.status(200).send(response);
             }
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    };
+    //------- Get all ---------------
+    getAll = async function (req, res) {
+        try {
+            const listCategory = await CategoryModel.find({});
+            const dataResponse = {
+                listCategory: listCategory,
+            };
+            const response = {
+                code: 507,
+                message: 'Get all categories successfully',
+                data: dataResponse,
+            };
+            res.status(200).send(response);
         } catch (error) {
             res.status(400).send({ message: error.message });
         }

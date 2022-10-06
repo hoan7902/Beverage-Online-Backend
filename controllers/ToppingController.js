@@ -30,7 +30,9 @@ class ToppingController {
                 };
                 res.status(200).send(response);
             }
-        } catch (error) {}
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
     };
     //------- Update Topping --------------------------------
     updateTopping = async (req, res) => {
@@ -66,7 +68,9 @@ class ToppingController {
                 };
                 res.status(200).send(response);
             }
-        } catch (error) {}
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
     };
     //------- Delete Topping --------------------------------
     deleteTopping = async (req, res) => {
@@ -88,7 +92,50 @@ class ToppingController {
                 };
                 res.status(200).send(response);
             }
-        } catch (error) {}
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    };
+    //--------- Get Topping --------------------
+    getTopping = async function (req, res) {
+        try {
+            let { typeId } = req.query;
+            if (typeId) {
+                const listTopping = await ToppingModel.find({
+                    typeId: typeId,
+                });
+                if (listTopping.length) {
+                    const dataRespone = {
+                        listTopping: listTopping,
+                    };
+                    const response = {
+                        code: 607,
+                        message: 'Get list topping successfully',
+                        data: dataRespone,
+                    };
+                    res.status(200).send(response);
+                } else {
+                    const response = {
+                        code: 608,
+                        message: 'TypeId is not correct',
+                    };
+                    res.status(200).send(response);
+                }
+            } else {
+                const listTopping = await ToppingModel.find({});
+                const dataRespone = {
+                    listTopping: listTopping,
+                };
+                const response = {
+                    code: 607,
+                    message: 'Get list topping successfully',
+                    data: dataRespone,
+                };
+                res.status(200).send(response);
+            }
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
     };
 }
 module.exports = new ToppingController();

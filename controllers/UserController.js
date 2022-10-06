@@ -138,5 +138,31 @@ class UserController {
             res.status(400).send({ message: error.message });
         }
     };
+    //------- Get detail user information   --------------------------------
+    getDetailUser = async function (req, res) {
+        try {
+            const { userId } = req.body;
+            const user = await UserModel.findById(userId);
+            if (user) {
+                const dataRespone = {
+                    user: { ...user.toObject(), password: '' },
+                };
+                const respone = {
+                    code: 102,
+                    message: 'Login successful',
+                    data: dataRespone,
+                };
+                res.status(200).send(respone);
+            } else {
+                const respone = {
+                    code: 115,
+                    message: 'No user have this userId',
+                };
+                res.status(200).send(respone);
+            }
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    };
 }
 module.exports = new UserController();

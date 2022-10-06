@@ -2,9 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const route = require('./routes/index');
+const cors = require('cors');
+const { Server } = require('socket.io');
 dotenv.config();
 const dbURL = process.env.DB_URL;
 const app = express();
+
+app.use(cors());
 
 app.use(
     express.urlencoded({
@@ -14,16 +18,32 @@ app.use(
 );
 app.use(express.json());
 route(app);
-mongoose
-    .connect(dbURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => {
-        app.listen(3000, () => {
-            console.log('Success');
+mongoose.connect(dbURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+const server = app.listen(3000, () => {
+    console.log('Success');
+});
+
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+    },
+});
+
+io.on('connection', (socket) => {
+    socket.on('client-submit', (value) => {
+        socket.emit('admin-dashboard', {
+            message: 'reload',
+            userId: value.userId,
         });
-    })
-    .catch((er) => {
-        console.log('Error: ' + er.message);
     });
+    socket.on('admin-submit', (value) => {
+        socket.emit('client-dashboard', {
+            message: 'reload',
+            userId: value.userId,
+        });
+    });
+});

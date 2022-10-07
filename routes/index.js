@@ -10,5 +10,8 @@ const route = (app) => {
     app.use('/category', category);
 
     app.use('/topping', topping);
+    app.use('/', (req, res) => {
+        res.status(200).send({ message: 'success' });
+    });
 };
 module.exports = route;

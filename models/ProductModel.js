@@ -13,14 +13,6 @@ const schema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        size: {
-            type: String,
-            default: 'S',
-        },
-        pricePlus: {
-            type: Number,
-            default: 0,
-        },
         typeId: {
             type: String,
             required: true,

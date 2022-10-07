@@ -4,24 +4,14 @@ class ProductController {
     //----------- create new product ------------------------------
     addProduct = async (req, res) => {
         try {
-            const {
-                name,
-                description,
-                price,
-                size,
-                pricePlus,
-                typeId,
-                image,
-                userId,
-            } = req.body;
+            const { name, description, price, typeId, image, userId } =
+                req.body;
             const user = await UserModel.findById(userId);
             if (user && user.admin) {
                 const newProduct = new ProductModel({
                     name,
                     description,
                     price,
-                    size,
-                    pricePlus,
                     typeId,
                     image,
                 });
@@ -50,8 +40,6 @@ class ProductController {
                 name,
                 description,
                 price,
-                size,
-                pricePlus,
                 typeId,
                 image,
                 userId,
@@ -65,10 +53,8 @@ class ProductController {
                     name,
                     description,
                     price,
-                    pricePlus,
                     typeId,
                     image,
-                    size,
                 });
                 const response = {
                     code: 203,
@@ -125,7 +111,7 @@ class ProductController {
             if (typeId) {
                 const listProduct = await ProductModel.find({
                     typeId: typeId,
-                }).select('name price size pricePlus image');
+                }).select('name price image');
                 if (listProduct.length) {
                     const dataRespone = {
                         listProduct: listProduct,
@@ -145,7 +131,7 @@ class ProductController {
                 }
             } else {
                 const listProduct = await ProductModel.find({}).select(
-                    'name price size pricePlus image'
+                    'name price image'
                 );
                 const dataRespone = {
                     listProduct: listProduct,
@@ -166,7 +152,7 @@ class ProductController {
         try {
             let { productId } = req.query;
             const productDetail = await ProductModel.findById(productId).select(
-                'name price size pricePlus image typeId description'
+                'name price image typeId description'
             );
             if (productDetail) {
                 const dataRespone = {

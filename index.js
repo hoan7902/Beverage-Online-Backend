@@ -8,7 +8,11 @@ dotenv.config();
 const dbURL = process.env.DB_URL;
 const app = express();
 
-app.use(cors());
+app.use(
+    cors({
+        origin: '*',
+    })
+);
 
 app.use(
     express.urlencoded({

@@ -43,5 +43,8 @@
             "yarn format",
             "git add ."
         ]
+    },
+    "engines": {
+        "node": "16.x"
     }
 }

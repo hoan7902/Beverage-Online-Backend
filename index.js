@@ -36,10 +36,6 @@ const io = new Server(server, {
     cors: {
         origin: '*',
         methods: ['GET', 'POST'],
-<<<<<<< HEAD
-=======
-        credentials: false,
->>>>>>> 75ba47cc1afba528efe1def8b00201099ca72dfd
     },
 });
 

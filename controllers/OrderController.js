@@ -1,4 +1,5 @@
 const OrderModel = require('../models/OrderModel');
+const ProductModel = require('../models/ProductModel');
 const UserModel = require('../models/UserModel');
 class ProductController {
     //------- create a new Order ---------------
@@ -70,6 +71,11 @@ class ProductController {
                 if (order.status === 'delivering') {
                     order.status = 'complete';
                     await order.save();
+                    order.listProduct.forEach((item) =>
+                        ProductModel.findByIdAndUpdate(item.productId, {
+                            popular: item.popular++,
+                        })
+                    );
                     const response = {
                         code: 402,
                         message: 'Update status Order success',

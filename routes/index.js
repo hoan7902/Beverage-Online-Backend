@@ -11,7 +11,7 @@ const route = (app) => {
 
     app.use('/topping', topping);
     app.use('/', (req, res) => {
-        res.status(200).send({ message: 'Success to connect' });
+        res.status(200).send({ message: 'Success to connect alo' });
     });
 };
 module.exports = route;

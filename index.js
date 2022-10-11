@@ -40,13 +40,13 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     socket.on('client-submit', (value) => {
-        socket.emit('admin-dashboard', {
+        io.sockets.emit('admin-dashboard', {
             message: 'reload',
             userId: value.userId,
         });
     });
     socket.on('admin-submit', (value) => {
-        socket.emit('client-dashboard', {
+        io.sockets.emit('client-dashboard', {
             message: 'reload',
             userId: value.userId,
         });

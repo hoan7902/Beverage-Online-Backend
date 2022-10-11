@@ -15,6 +15,10 @@ const schema = new mongoose.Schema(
         },
         listProduct: [
             {
+                productId: {
+                    type: String,
+                    required: true,
+                },
                 name: {
                     type: String,
                     required: true,
@@ -23,15 +27,15 @@ const schema = new mongoose.Schema(
                     type: Number,
                     required: true,
                 },
-                size: {
-                    type: String,
-                    default: 'S',
-                },
                 image: {
                     type: String,
                     required: true,
                 },
                 quantity: {
+                    type: Number,
+                    required: true,
+                },
+                popular: {
                     type: Number,
                     required: true,
                 },

@@ -33,6 +33,10 @@ const schema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        code: {
+            type: Number,
+            required: true,
+        },
     },
     { timestamps: true }
 );

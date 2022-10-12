@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
         });
     });
     socket.on('admin-submit', (value) => {
-        io.sockets.emit('client-dashboard', {
+        io.sockets.emit(`${value.userId}-dashboard`, {
             message: 'reload',
             userId: value.userId,
         });

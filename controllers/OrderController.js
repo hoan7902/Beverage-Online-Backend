@@ -16,23 +16,32 @@ class ProductController {
                 userId,
                 description,
             } = req.body;
-            const newOrder = new OrderModel({
-                phoneNumber,
-                userName,
-                listProduct,
-                totalPrice,
-                isPay,
-                status,
-                address,
-                userId,
-                description,
-            });
-            await newOrder.save();
-            const response = {
-                code: 401,
-                message: 'Create new Order success',
-            };
-            res.status(200).send(response);
+            const user = UserModel.findById(userId);
+            if (user) {
+                const newOrder = new OrderModel({
+                    phoneNumber,
+                    userName,
+                    listProduct,
+                    totalPrice,
+                    isPay,
+                    status,
+                    address,
+                    userId,
+                    description,
+                });
+                await newOrder.save();
+                const response = {
+                    code: 401,
+                    message: 'Create new Order success',
+                };
+                res.status(200).send(response);
+            } else {
+                const response = {
+                    code: 407,
+                    message: 'This user is not exist',
+                };
+                res.status(200).send(response);
+            }
         } catch (error) {
             res.status(400).send({ message: error.message });
         }

@@ -7,5 +7,6 @@ router.post('/change-user-information', userController.updateInforUser);
 router.post('/change-user-password', userController.changePassword);
 router.post('/get-detail-user', userController.getDetailUser);
 router.post('/verify-user', userController.verifyPhoneNumber);
+router.post('/forgot-password', userController.forgotPassword);
 
 module.exports = router;

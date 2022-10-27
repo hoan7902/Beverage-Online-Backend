@@ -1,0 +1,29 @@
+@urlDev=http://localhost:3000
+###Create a new account with phoneNumber
+POST {{urlDev}}/user/create-user
+content-type: application/json
+
+{
+    "phoneNumber":"0936155228",
+    "password":"tienismywife"
+}
+
+###Verify phoneNumber
+
+POST {{urlDev}}/user/verify-user
+content-type: application/json
+
+{
+    "phoneNumber":"0936155228",
+    "code": 30027
+}
+
+###Login with phoneNumber
+
+POST {{urlDev}}/user/login-user
+content-type: application/json
+
+{
+    "phoneNumber":"09813346154",
+    "password":"tienismywife"
+}

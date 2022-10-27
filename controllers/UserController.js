@@ -55,6 +55,53 @@ class UserController {
             res.send({ message: error.message });
         }
     };
+    //------- Forgot password ----------------
+    forgotPassword = async function (req, res) {
+        try {
+            const { phoneNumber } = req.body;
+            const user = await UserModel.findOne({ phoneNumber: phoneNumber });
+            if (user) {
+                const code = Math.floor(Math.random() * 10000000);
+                user.password = code;
+                await user.save();
+                const accountSid = process.env.TWILIO_ACCOUNT_SID;
+                const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+                const client = twilio(accountSid, authToken);
+                client.messages
+                    .create({
+                        body: `Your code is ${code}`,
+                        from: '+13148606925',
+                        to: '+84981346154',
+                    })
+                    .then(() => {
+                        const dataResponse = {
+                            phoneNumber: phoneNumber,
+                        };
+                        const respone = {
+                            code: 119,
+                            message:
+                                'Your password was sent to your phone number',
+                            data: dataResponse,
+                        };
+                        res.status(200).send(respone);
+                    })
+                    .catch((err) => {
+                        res.status(200).send({
+                            message: err.message,
+                        });
+                    });
+            } else {
+                const respone = {
+                    code: 119,
+                    message: 'Your phone number is not correct',
+                };
+                res.status(200).send(respone);
+            }
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    };
     //------- Create User ----------------
     createUser = async function (req, res) {
         try {
@@ -79,7 +126,7 @@ class UserController {
                             phoneNumber: phoneNumber,
                         };
                         const respone = {
-                            code: 111,
+                            code: 118,
                             message: 'Please verify',
                             data: dataResponse,
                         };
@@ -191,10 +238,10 @@ class UserController {
     //---------- Change Password --------------------------------
     changePassword = async (req, res) => {
         try {
-            const { userId, password, newPassword } = req.body;
+            const { phoneNumber, password, newPassword } = req.body;
 
-            const user = await UserModel.findById(userId);
-            if (user.password === password) {
+            const user = await UserModel.findOne({ phoneNumber, password });
+            if (user) {
                 if (newPassword === password) {
                     const respone = {
                         code: 113,

@@ -119,3 +119,63 @@
  *           type: string
  *           description: Mật khẩu mới
  */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ProductOfOrder:
+ *       type: object
+ *       required:
+ *         - productId
+ *         - name
+ *         - price
+ *         - image
+ *         - quantity
+ *         - popular
+ *       properties:
+ *         productId:
+ *           type: string
+ *           description: id của sản phẩm
+ *         name:
+ *           type: string
+ *           description: Tên sản phẩm
+ *         price:
+ *           type: number
+ *           description: Giá
+ *         image:
+ *           type: string
+ *           description: Đường dẫn hình ảnh
+ *         quantity:
+ *           type: number
+ *           description: số lượng
+ *         popular:
+ *           type: number
+ *           description: Độ phổ biến
+ *         toppings:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/ToppingOfProduct'
+ *           description: Danh sách các topping
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ToppingOfProduct:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Tên sản phẩm
+ *         price:
+ *           type: number
+ *           description: Giá
+ *         image:
+ *           type: string
+ *           description: Đường dẫn hình ảnh
+ *         quantity:
+ *           type: number
+ *           description: số lượng
+ */

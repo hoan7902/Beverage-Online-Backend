@@ -13,7 +13,7 @@
  *     tags: [Carts]
  *     parameters:
  *       - in: query
- *         name: uerId
+ *         name: userId
  *         schema:
  *           type: string
  *     responses:

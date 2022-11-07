@@ -16,23 +16,32 @@ class ProductController {
                 userId,
                 description,
             } = req.body;
-            const newOrder = new OrderModel({
-                phoneNumber,
-                userName,
-                listProduct,
-                totalPrice,
-                isPay,
-                status,
-                address,
-                userId,
-                description,
-            });
-            await newOrder.save();
-            const response = {
-                code: 401,
-                message: 'Create new Order success',
-            };
-            res.status(200).send(response);
+            const user = UserModel.findById(userId);
+            if (user) {
+                const newOrder = new OrderModel({
+                    phoneNumber,
+                    userName,
+                    listProduct,
+                    totalPrice,
+                    isPay,
+                    status,
+                    address,
+                    userId,
+                    description,
+                });
+                await newOrder.save();
+                const response = {
+                    code: 401,
+                    message: 'Create new Order success',
+                };
+                res.status(200).send(response);
+            } else {
+                const response = {
+                    code: 407,
+                    message: 'This user is not exist',
+                };
+                res.status(200).send(response);
+            }
         } catch (error) {
             res.status(400).send({ message: error.message });
         }
@@ -132,6 +141,30 @@ class ProductController {
                 res.status(200).send(response);
             } else {
                 res.status(400).send({ code: 404, message: 'Not Found user' });
+            }
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    };
+
+    //--------- delete order ------------------------
+    deleteOrder = async function (req, res) {
+        try {
+            const { orderId, userId } = req.body;
+            const user = await UserModel.findById(userId);
+            if (user && user.admin) {
+                await OrderModel.findByIdAndDelete(orderId);
+                const response = {
+                    code: 406,
+                    message: 'Delete status Order success',
+                };
+                res.status(200).send(response);
+            } else {
+                const response = {
+                    code: 407,
+                    message: 'Your account is not permissions to delete Order',
+                };
+                res.status(200).send(response);
             }
         } catch (error) {
             res.status(400).send({ message: error.message });

@@ -5,4 +5,5 @@ route.post('/add-order', orderController.addOrder);
 route.post('/update-order', orderController.updateOrder);
 route.post('/complete-order', orderController.completeOrder);
 route.post('/get-list-order', orderController.getOrderWithStatus);
+route.post('/delete-order', orderController.deleteOrder);
 module.exports = route;

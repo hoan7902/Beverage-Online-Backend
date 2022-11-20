@@ -35,7 +35,15 @@ Content-Type: application/json
 {
     "userId":"63455e6912c233918ec77419",
     "productId":"6341860f3aef1a0dbfbac749",
-    "quantity":2
+    "quantity":2,
+    "listTopping": [
+        {
+            "toppingId": "6341b027180933c7ab1ecfe3",
+            "quantity": 2,
+            "price":20000,
+            "name":"abcsdd"
+        }
+    ]
 }
 
 ### Remove from cart

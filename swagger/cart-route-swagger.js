@@ -42,6 +42,19 @@
  *                 type: string
  *               quantity:
  *                 type: number
+ *               listTopping:
+ *                 type: array
+ *                 items:
+ *                     type: object
+ *                     properties:
+ *                       toppingId:
+ *                         type: string
+ *                       quantity:
+ *                         type: number
+ *                       price:
+ *                         type: number
+ *                       name:
+ *                         type: string
  *     responses:
  *       200:
  *         content:

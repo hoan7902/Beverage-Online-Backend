@@ -33,8 +33,8 @@ POST {{urlDev}}/cart/add-to-cart
 Content-Type: application/json
 
 {
-    "userId":"63455e6912c233918ec77419",
-    "productId":"6341860f3aef1a0dbfbac749",
+    "userId":"63387454799fda09ab2c454f",
+    "productId":"634034181e8d239ffdd70e0b",
     "quantity":2,
     "listTopping": [
         {
@@ -51,13 +51,12 @@ DELETE  {{urlDev}}/cart/remove-from-cart
 Content-Type: application/json
 
 {
-    "userId":"63455e6912c233918ec77419",
-    "productId":"6341860f3aef1a0dbfbac749",
-    "quantity":2
+    "userId":"63387454799fda09ab2c454f",
+    "productId":"634034181e8d239ffdd70e0b"
 }
 
 ### GET cart
-GET {{urlDev}}/cart/get-all-cart?userId=63455e6912c233918ec77419
+GET {{urlDev}}/cart/get-all-cart?userId=63387454799fda09ab2c454f
 ### Get all product
 
 GET {{urlDev}}/product/get-product

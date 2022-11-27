@@ -45,6 +45,13 @@ Content-Type: application/json
         }
     ]
 }
+### get information user
+POST {{urlDev}}/user/get-detail-user
+Content-Type: application/json
+
+{
+    "userId":"asjhdads"
+}
 
 ### Remove from cart
 DELETE  {{urlDev}}/cart/remove-from-cart

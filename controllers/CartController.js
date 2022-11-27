@@ -8,7 +8,11 @@ class CartController {
         quantity: quantity,
         listTopping: listTopping,
       });
-      await client.hmset(`user::${userId.toString()}`, productId, cartItem);
+      await client.hmset(
+        `user::${userId.toString()}`.toLowerCase().toLowerCase(),
+        productId,
+        cartItem
+      );
       res.status(200).send({
         code: 1001,
         message: 'Add to cart success',
@@ -59,7 +63,7 @@ class CartController {
   async removeFromCart(req, res) {
     try {
       const { productId, userId } = req.body;
-      await client.hdel(`user::${userId.toString()}`, productId);
+      await client.hdel(`user::${userId.toString()}`.toLowerCase(), productId);
       res.status(200).send({
         code: 1003,
         message: 'remove success',

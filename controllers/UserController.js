@@ -213,10 +213,8 @@ class UserController {
   //--------- Update user information --------------------------------
   updateInforUser = async (req, res) => {
     try {
-      const { userId, avatar, userName, email, birthDate } = req.body;
+      const { userId, email, birthDate } = req.body;
       const user = await UserModel.findById(userId);
-      user.avatar = avatar;
-      user.userName = userName;
       user.birthDate = birthDate;
       user.email = email;
       await user.save();

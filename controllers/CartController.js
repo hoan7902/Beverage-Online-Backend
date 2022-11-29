@@ -22,6 +22,7 @@ class CartController {
     try {
       const { userId } = req.query;
       await client.hgetall(userId, async (err, result) => {
+        console.log(result ? Object.keys(result).length : 0);
         if (err) res.status(500).send({ error: err });
         else {
           const listProductId = result ? Object.keys(result) : [];
@@ -56,7 +57,12 @@ class CartController {
   async removeFromCart(req, res) {
     try {
       const { productId, userId } = req.body;
-      await client.hdel(userId, productId);
+      // await client.hdel(userId, productId, (err, result) => {
+      //   console.log(err, result);
+      // });
+      await client.hgetall(userId, async (err, result) => {
+        console.log(result ? Object.keys(result).length : 0);
+      });
       res.status(200).send({
         code: 1003,
         message: 'remove success',

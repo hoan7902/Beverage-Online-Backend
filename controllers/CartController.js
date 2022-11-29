@@ -57,11 +57,8 @@ class CartController {
   async removeFromCart(req, res) {
     try {
       const { productId, userId } = req.body;
-      // await client.hdel(userId, productId, (err, result) => {
-      //   console.log(err, result);
-      // });
-      await client.hgetall(userId, async (err, result) => {
-        console.log(result ? Object.keys(result).length : 0);
+      await client.hdel(userId, productId, (err, result) => {
+        console.log(err, result);
       });
       res.status(200).send({
         code: 1003,

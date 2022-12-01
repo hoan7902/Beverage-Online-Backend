@@ -143,7 +143,7 @@ class ProductController {
         } else {
           const listOrder = await OrderModel.find({
             userId: user._id,
-            status: { $ne: status },
+            status: { $ne: 'complete' },
           });
           const pageResponse = {
             listOrder: listOrder,

@@ -108,7 +108,6 @@ class UserController {
       if (!user) {
         const code = Math.floor(Math.random() * 100000);
         const newUser = new UserModel({ phoneNumber, password, code });
-        await newUser.save();
         const accountSid = process.env.TWILIO_ACCOUNT_SID;
         const authToken = process.env.TWILIO_AUTH_TOKEN;
 
@@ -116,13 +115,14 @@ class UserController {
         client.messages
           .create({
             body: `Your code is ${code}`,
-            from: '+13148606925',
+            messagingServiceSid: 'MG92cdc03ce33b530eff5f0aea6bcabe5e',
             to: '+84981346154',
           })
           .then(() => {
             const dataResponse = {
               phoneNumber: phoneNumber,
             };
+            newUser.save();
             const respone = {
               code: 118,
               message: 'Please verify',
@@ -131,14 +131,16 @@ class UserController {
             res.status(200).send(respone);
           })
           .catch((err) => {
+            console.log(err);
             res.status(200).send({
+              code: 2,
               message: err.message,
             });
           });
       } else {
         if (!user.isActive) {
           const code = Math.floor(Math.random() * 100000);
-          await user.update({ code: code });
+          await user.updateOne({ code: code });
 
           const accountSid = process.env.TWILIO_ACCOUNT_SID;
           const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -146,7 +148,6 @@ class UserController {
           client.messages
             .create({
               body: `Your code is ${code}`,
-              from: '+13148606925',
               to: '+84981346154',
             })
             .then(() => {
@@ -162,9 +163,11 @@ class UserController {
             })
             .catch((err) => {
               res.status(200).send({
+                code: 2,
                 message: err.message,
               });
-            });
+            })
+            .done();
         } else {
           const respone = {
             code: 112,
@@ -174,7 +177,7 @@ class UserController {
         }
       }
     } catch (error) {
-      res.status(400).send({ message: error.message });
+      res.status(400).send({ code: 1, message: error.message });
     }
   };
   //------- verify the phone number ----------------

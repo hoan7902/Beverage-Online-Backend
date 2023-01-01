@@ -18,7 +18,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://sleepy-scrubland-61892.herokuapp.com/',
+        url: 'http://localhost:3000/',
       },
     ],
   },

@@ -18,7 +18,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://sleepy-scrubland-61892.herokuapp.com/',
+        url: 'https://beverage-store7902.onrender.com/',
       },
     ],
   },
@@ -46,12 +46,13 @@ app.use(
 );
 app.use(express.json());
 route(app);
+mongoose.set('strictQuery', false);
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const server = app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Success');
 });
 
